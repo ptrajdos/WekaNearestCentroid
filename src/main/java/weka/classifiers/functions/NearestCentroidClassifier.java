@@ -7,10 +7,15 @@ import weka.classifiers.AbstractClassifier;
 import weka.core.Instances;
 
 /**
- * @author pawel
+ * @author Pawel Trajdos
  *
  */
 public class NearestCentroidClassifier extends AbstractClassifier {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8462836067571523903L;
 
 	/**
 	 * 
