@@ -8,6 +8,7 @@ import java.util.Enumeration;
 import java.util.Vector;
 
 import weka.classifiers.AbstractClassifier;
+import weka.core.Attribute;
 import weka.core.Capabilities;
 import weka.core.Capabilities.Capability;
 import weka.core.DenseInstance;
@@ -30,7 +31,7 @@ public class NearestCentroidClassifier extends AbstractClassifier {
 	 */
 	private static final long serialVersionUID = 8462836067571523903L;
 	
-	protected DistanceFunction distFun = new EuclideanDistance();
+	protected DistanceFunction distFun = null;
 	protected Instance[] centroids = null;
 	
 
@@ -38,7 +39,11 @@ public class NearestCentroidClassifier extends AbstractClassifier {
 	 * 
 	 */
 	public NearestCentroidClassifier() {
-		// TODO Auto-generated constructor stub
+		
+		EuclideanDistance tmpDist = new EuclideanDistance();
+		tmpDist.setDontNormalize(true);
+		this.distFun = tmpDist;
+
 	}
 
 	/**
@@ -60,7 +65,9 @@ public class NearestCentroidClassifier extends AbstractClassifier {
 		
 		//Initialise centroids
 		for(int i=0;i<numClasses;i++){
-			this.centroids[i] = new DenseInstance(numAttrs);
+			this.centroids[i] = new DenseInstance(data.get(0));
+			this.centroids[i].setDataset(data);
+			this.centroids[i].setClassMissing();
 		}
 		//calculate centroids
 		int numInstances = data.numInstances();
@@ -223,8 +230,9 @@ public class NearestCentroidClassifier extends AbstractClassifier {
 		
 		StringBuffer result = new StringBuffer();
 		result.append("Nearest Centroid Classifier: \n\nCentroids:\n");
+		Attribute classAttrib = this.centroids[0].classAttribute();
 		for(int c=0;c<this.centroids.length;c++){
-			result.append("Class " + c +":" + this.centroids[c]+"\n");
+			result.append("Class " + classAttrib.value(c) +":" + this.centroids[c]+"\n");
 		}
 		
 		

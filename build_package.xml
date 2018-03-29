@@ -43,6 +43,8 @@
  ============================================================================
 -->
 
+  
+
   <target name="init_compile" depends="init_all">
     <!-- Create the build directory structure used by compile -->
     <mkdir dir="${build}/classes"/>
@@ -158,6 +160,10 @@
     </jar>
   </target>
 
+ <!--<target name="srcjar" description="create jar source file">
+       <jar jarfile="${dist}/${package}_src.jar" includes="**/*.java" basedir="src"/>
+  </target>
+-->
   <target name="make_package" depends="clean, exejar" description="Make the package zip file. Run with -Dpackage=[package name]">
     <mkdir dir="${dist}/${package}"/>
     <copy todir="${dist}/${package}">
