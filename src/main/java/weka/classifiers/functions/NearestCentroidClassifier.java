@@ -18,6 +18,7 @@ import weka.core.Instance;
 import weka.core.Instances;
 import weka.core.NormalizableDistance;
 import weka.core.Option;
+import weka.core.RevisionUtils;
 import weka.core.Utils;
 
 /**
@@ -61,7 +62,7 @@ public class NearestCentroidClassifier extends AbstractClassifier {
 		
 		int classIdx = data.classIndex();
 		double[][] centroidsDoubles = new double[numClasses][numAttrs];
-		int[] classObjCounts = new int[numClasses];
+		double[] classObjCounts = new double[numClasses];
 		
 		//Initialise centroids
 		for(int i=0;i<numClasses;i++){
@@ -73,10 +74,14 @@ public class NearestCentroidClassifier extends AbstractClassifier {
 		int numInstances = data.numInstances();
 		int classNum = 0;
 		double[] instanceRep = null;
+		Instance tmpInstance = null;
 		for(int i=0;i<numInstances;i++){
-			instanceRep = data.get(i).toDoubleArray();
+			tmpInstance = data.get(i);
+			instanceRep = tmpInstance.toDoubleArray();
+			if(Utils.isMissingValue(tmpInstance.classValue()))
+				continue;
 			classNum = (int) instanceRep[classIdx];
-			classObjCounts[classNum]++;
+			classObjCounts[classNum]+=data.get(i).weight();
 			for(int a=0;a<numAttrs;a++){
 				centroidsDoubles[classNum][a] +=instanceRep[a];
 			}
@@ -103,26 +108,37 @@ public class NearestCentroidClassifier extends AbstractClassifier {
 		
 		int numClasses = this.centroids.length;
 		double[] distribution = new double[numClasses];
+	
 		double distSum =0;
 		double tmp=0;
-		
+		int maxIdx =0;
+		double max = -Double.MAX_VALUE;
 		for(int c =0;c<numClasses;c++){
 			tmp = this.distFun.distance(this.centroids[c], instance);
+			if(tmp > max){
+				max = tmp;
+				maxIdx = c;
+			}
+			tmp = Math.exp(-tmp);
 			distribution[c] = tmp;
 			distSum+=tmp;
 		}
+		boolean err =false;
 		
-		double invDistSum=0;
+		err = Utils.eq(distSum, 0)? true:false;
+		
+		if(!err)
 		for(int c =0;c<numClasses;c++){
-			distribution[c]=(distSum - distribution[c])/distSum;
-			invDistSum+=distribution[c];
+			distribution[c]/=distSum;
+			if(Utils.isMissingValue(distribution[c])){
+				err=true;
+				break;
+			}
 		}
-		
-		for(int c =0;c<numClasses;c++){
-			distribution[c]/=invDistSum;
+		if(err){
+			distribution = new double[numClasses];
+			distribution[maxIdx] =1.0;
 		}
-		
-		
 		return distribution;
 		
 	}
@@ -203,12 +219,16 @@ public class NearestCentroidClassifier extends AbstractClassifier {
 	 */
 	@Override
 	public Capabilities getCapabilities() {
-		Capabilities caps = super.getCapabilities(); 
-		caps.enable(Capability.NUMERIC_ATTRIBUTES);
+		Capabilities caps = super.getCapabilities();
+		caps.disableAll();
 		
-		// class
+		
 	    caps.enable(Capability.NOMINAL_CLASS);
 	    caps.enable(Capability.MISSING_CLASS_VALUES);
+	    
+	    caps.enable(Capability.NUMERIC_ATTRIBUTES);
+	    caps.enable(Capability.BINARY_ATTRIBUTES);
+	    
 
 	    // instances
 	    caps.setMinimumNumberInstances(1);
@@ -261,6 +281,17 @@ public class NearestCentroidClassifier extends AbstractClassifier {
 		this.distFun = distFun;
 	}
 	
+	public String distFunTipText(){
+		return "Distance function to use with the classifier";
+	}
+	
+	/* (non-Javadoc)
+	 * @see weka.classifiers.AbstractClassifier#getRevision()
+	 */
+	@Override
+	public String getRevision() {
+		return RevisionUtils.extract("$Revision: 2 $");
+	}
 	
 
 	/**
@@ -270,5 +301,9 @@ public class NearestCentroidClassifier extends AbstractClassifier {
 		runClassifier(new NearestCentroidClassifier(), args);
 
 	}
+
+	
+	
+	
 
 }
