@@ -20,12 +20,13 @@ import weka.core.NormalizableDistance;
 import weka.core.Option;
 import weka.core.RevisionUtils;
 import weka.core.Utils;
+import weka.core.WeightedInstancesHandler;
 
 /**
  * @author Pawel Trajdos
  *
  */
-public class NearestCentroidClassifier extends AbstractClassifier {
+public class NearestCentroidClassifier extends AbstractClassifier implements WeightedInstancesHandler {
 
 	/**
 	 * 
@@ -80,10 +81,11 @@ public class NearestCentroidClassifier extends AbstractClassifier {
 			instanceRep = tmpInstance.toDoubleArray();
 			if(Utils.isMissingValue(tmpInstance.classValue()))
 				continue;
+			double weight = data.get(i).weight();
 			classNum = (int) instanceRep[classIdx];
-			classObjCounts[classNum]+=data.get(i).weight();
+			classObjCounts[classNum]+=weight;
 			for(int a=0;a<numAttrs;a++){
-				centroidsDoubles[classNum][a] +=instanceRep[a];
+				centroidsDoubles[classNum][a] +=instanceRep[a]*weight;
 			}
 		}
 		
