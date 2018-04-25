@@ -1,0 +1,2 @@
+#generators
+weka.classifiers.functions.NearestCentroidClassifier=weka.gui.GenericObjectEditor

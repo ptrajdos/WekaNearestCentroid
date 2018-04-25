@@ -1,0 +1,4 @@
+#Lists of combiners
+
+weka.classifiers.functions.NearestCentroidClassifier=\
+ weka.classifiers.functions.NearestCentroidClassifier
