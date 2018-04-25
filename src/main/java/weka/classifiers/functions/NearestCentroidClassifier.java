@@ -19,6 +19,8 @@ import weka.core.Instances;
 import weka.core.NormalizableDistance;
 import weka.core.Option;
 import weka.core.RevisionUtils;
+import weka.core.TechnicalInformation;
+import weka.core.TechnicalInformationHandler;
 import weka.core.Utils;
 import weka.core.WeightedInstancesHandler;
 
@@ -302,6 +304,10 @@ public class NearestCentroidClassifier extends AbstractClassifier implements Wei
 	public static void main(String[] args) {
 		runClassifier(new NearestCentroidClassifier(), args);
 
+	}
+
+	public String globalInfo(){
+		return "Performs the Nearest Centroid classification";
 	}
 
 	
