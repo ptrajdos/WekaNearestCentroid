@@ -6,10 +6,10 @@
 PackageName=Nearest Centroid
 
 # Version (required)
-Version=0.1.0
+Version=1.2.4
 
 #Date
-Date=2018-03-23
+Date=2018-05-01
 
 # Title (required)
 Title= The implementation of the Nearest Centroid algorithm
