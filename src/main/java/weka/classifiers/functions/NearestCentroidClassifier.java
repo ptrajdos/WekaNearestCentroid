@@ -19,8 +19,6 @@ import weka.core.Instances;
 import weka.core.NormalizableDistance;
 import weka.core.Option;
 import weka.core.RevisionUtils;
-import weka.core.TechnicalInformation;
-import weka.core.TechnicalInformationHandler;
 import weka.core.Utils;
 import weka.core.WeightedInstancesHandler;
 
@@ -37,6 +35,7 @@ public class NearestCentroidClassifier extends AbstractClassifier implements Wei
 	
 	protected DistanceFunction distFun = null;
 	protected Instance[] centroids = null;
+	protected boolean[] activeCentroids = null;
 	
 
 	/**
@@ -62,6 +61,7 @@ public class NearestCentroidClassifier extends AbstractClassifier implements Wei
 		int numClasses = data.numClasses();
 		int numAttrs = data.numAttributes();
 		this.centroids = new Instance[numClasses];
+		this.activeCentroids = new boolean[numClasses];
 		
 		int classIdx = data.classIndex();
 		double[][] centroidsDoubles = new double[numClasses][numAttrs];
@@ -85,6 +85,7 @@ public class NearestCentroidClassifier extends AbstractClassifier implements Wei
 				continue;
 			double weight = data.get(i).weight();
 			classNum = (int) instanceRep[classIdx];
+			this.activeCentroids[classNum] = true;
 			classObjCounts[classNum]+=weight;
 			for(int a=0;a<numAttrs;a++){
 				centroidsDoubles[classNum][a] +=instanceRep[a]*weight;
@@ -124,8 +125,10 @@ public class NearestCentroidClassifier extends AbstractClassifier implements Wei
 				maxIdx = c;
 			}
 			tmp = Math.exp(-tmp);
-			distribution[c] = tmp;
-			distSum+=tmp;
+			if(this.activeCentroids[c]) {
+				distribution[c] = tmp;
+				distSum+=tmp;
+			}
 		}
 		boolean err =false;
 		
@@ -233,9 +236,11 @@ public class NearestCentroidClassifier extends AbstractClassifier implements Wei
 	    caps.enable(Capability.NUMERIC_ATTRIBUTES);
 	    caps.enable(Capability.BINARY_ATTRIBUTES);
 	    
+	    
 
 	    // instances
-	    caps.setMinimumNumberInstances(1);
+	    caps.setMinimumNumberInstances(2);
+	    
 		return caps; 
 	}
 	
