@@ -1,4 +1,4 @@
-<project name="NearestCentroid" default="compile" basedir=".">
+<project name="NearestCentroid" default="compile" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
 <!-- 
   ===========================================================================
    Ant build file for weka a weka package. 
@@ -94,6 +94,13 @@
              link="http://weka.sourceforge.net/doc.dev/"
              maxmemory="256m"/>          
   </target> 
+
+   <!-- ================================= 
+          target: resolve              
+         ================================= -->
+    <target name="resolve" description="--> retrieve dependencies with ivy">
+        <ivy:retrieve />
+    </target>
 
 
 <!--
