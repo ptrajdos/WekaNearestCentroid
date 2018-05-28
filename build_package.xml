@@ -147,6 +147,25 @@
       basedir="${build}/testcases">
     </jar>
   </target>
+  <!-- 
+  	Run unit tests
+  -->
+  
+  <target name="run_tests" depends="compile_tests, init_dist" description="Runs unit tests">
+  	<junit printsummary="on" haltonfailure="yes" fork="true">
+  		<classpath>
+			<path refid="project.class.path"/>
+         	<pathelement location="${build}/testcases"/>
+  		</classpath>
+  		<formatter type="brief" usefile="false" />
+
+        <batchtest>
+         	<fileset dir="${src-test}" includes="**/*Test.java" />
+        </batchtest>
+
+  	</junit>
+
+  </target>
 
 <!--
   ===========================================================================
