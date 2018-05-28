@@ -28,6 +28,7 @@
 		<dependency org="junit" name="junit" rev="4.11" force="true" conf="test->runtime(*),master(*)"/>
 		<dependency org="nz.ac.waikato.cms.weka" name="weka-stable" rev="[3.8.2,)" force="true" conf="compile->compile(*),master(*);runtime->runtime(*);test->runtime(*),master(*)">
 			<artifact name="weka-stable" type="test-jar" ext="jar" conf="" m:classifier="tests"/>
+                        <artifact name="weka-stable" type="jar" ext="jar" conf=""/>
 		</dependency>
 	</dependencies>
 </ivy-module>
