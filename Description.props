@@ -3,10 +3,10 @@
 # 
 
 # Package name (required)
-PackageName=Nearest Centroid
+PackageName=WekaNearestCentroid
 
 # Version (required)
-Version=1.2.5
+Version=1.2.6
 
 #Date
 Date=2018-05-02
