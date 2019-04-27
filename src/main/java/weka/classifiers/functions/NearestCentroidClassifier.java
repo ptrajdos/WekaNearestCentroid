@@ -13,7 +13,6 @@ import weka.classifiers.functions.nearestCentroid.prototypeFinders.MeanCentroidF
 import weka.core.Attribute;
 import weka.core.Capabilities;
 import weka.core.Capabilities.Capability;
-import weka.core.DenseInstance;
 import weka.core.DistanceFunction;
 import weka.core.EuclideanDistance;
 import weka.core.Instance;
