@@ -1,0 +1,1 @@
+typeSearchIndex = [{"p":"weka.classifiers.functions.nearestCentroid","l":"ACentroidFinder"},{"p":"weka.classifiers.functions.nearestCentroid","l":"ICentroidFinder"},{"p":"weka.classifiers.functions.nearestCentroid.prototypeFinders","l":"MeanCentroidFinder"},{"p":"weka.classifiers.functions","l":"NearestCentroidClassifier"}]
