@@ -5,3 +5,7 @@ weka.classifiers.functions.NearestCentroidClassifier=\
 
 weka.classifiers.functions.nearestCentroid.ICentroidFinder=\
  weka.classifiers.functions.nearestCentroid.prototypeFinders
+
+
+ weka.core.DistanceFunction=\
+  weka.core.distances

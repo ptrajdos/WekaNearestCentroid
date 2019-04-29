@@ -35,6 +35,13 @@
    <url>https://github.com/ptrajdos/WekaNearestCentroid/tree/master</url>
  </scm>
 
+<repositories>
+   <repository>
+       <id>CogcompSoftware</id>
+       <name>CogcompSoftware</name>
+       <url>http://cogcomp.org/m2repo/</url>
+     </repository>
+  </repositories>
 
   <distributionManagement>
   <snapshotRepository>
@@ -69,6 +76,18 @@
       <type>test-jar</type>
       <scope>test</scope>
     </dependency>
+
+<dependency>
+    <groupId>no.uib.cipr.matrix</groupId>
+    <artifactId>mtj</artifactId>
+    <version>[0.9.12,)</version>
+</dependency>
+
+
+
+
+
+
   </dependencies>
   
   <properties>

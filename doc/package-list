@@ -1,3 +1,4 @@
 weka.classifiers.functions
 weka.classifiers.functions.nearestCentroid
 weka.classifiers.functions.nearestCentroid.prototypeFinders
+weka.core.distances
