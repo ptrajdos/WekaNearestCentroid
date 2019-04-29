@@ -1,2 +1,3 @@
 #generators
 weka.classifiers.functions.nearestCentroid.ICentroidFinder=weka.gui.GenericObjectEditor
+weka.core.distances.MahalanobisDistance=weka.gui.GenericObjectEditor
