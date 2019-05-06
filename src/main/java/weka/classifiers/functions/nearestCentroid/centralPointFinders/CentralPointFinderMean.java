@@ -1,11 +1,11 @@
 /**
  * 
  */
-package weka.classifiers.functions.nearestCentroid.prototypeFinders;
+package weka.classifiers.functions.nearestCentroid.centralPointFinders;
 
 import java.util.Enumeration;
 
-import weka.classifiers.functions.nearestCentroid.ACentroidFinder;
+import weka.classifiers.functions.nearestCentroid.ACentralPointFinder;
 import weka.core.DenseInstance;
 import weka.core.Instance;
 import weka.core.Instances;
@@ -18,7 +18,7 @@ import weka.core.Utils;
  * @version 2.0.0
  *
  */
-public class MeanCentroidFinder extends ACentroidFinder {
+public class CentralPointFinderMean extends ACentralPointFinder {
 
 	/**
 	 * 

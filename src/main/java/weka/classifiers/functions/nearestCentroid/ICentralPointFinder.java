@@ -11,7 +11,7 @@ import weka.core.OptionHandler;
  * @version 2.0.0
  *
  */
-public interface ICentroidFinder extends OptionHandler {
+public interface ICentralPointFinder extends OptionHandler {
 	
 	/**
 	 * Find prototypes

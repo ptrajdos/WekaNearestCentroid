@@ -15,7 +15,7 @@ import weka.core.CapabilitiesHandler;
  * @version 2.0.0
  *
  */
-public abstract class ACentroidFinder implements ICentroidFinder, Serializable, CapabilitiesHandler {
+public abstract class ACentralPointFinder implements ICentralPointFinder, Serializable, CapabilitiesHandler {
 
 	/**
 	 * 

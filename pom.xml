@@ -84,7 +84,11 @@
 </dependency>
 
 
-
+    <dependency>
+        <groupId>com.github.ptrajdos</groupId>
+        <artifactId>WekaTools</artifactId>
+        <version>[0.4.0,)</version>
+    </dependency>
 
 
 

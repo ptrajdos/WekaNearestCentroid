@@ -156,6 +156,7 @@ public class MahalanobisDistance implements DistanceFunction, Serializable, Opti
 	public void setAttributeIndices(String value) {
 		this.attRange.setRanges(value);
 		invalidate();
+		validate();
 
 	}
 
@@ -334,6 +335,31 @@ public class MahalanobisDistance implements DistanceFunction, Serializable, Opti
 			instRepTrans[a] = instRep[this.activeIndices.get(a)];
 		
 		return instRepTrans;
+	}
+	
+	protected Instance inverseInstanceTransform(double[] vals) {
+		int numAttrs = this.activeAttrs.length;
+		if(vals.length != this.activeIndices.size())return null;
+		
+		Instance tmpInstance = this.refData.get(0);
+		double[] representation = tmpInstance.toDoubleArray();
+		
+		int actCounter = 0;
+		for(int a=0;a<numAttrs;a++) {
+			if(this.activeAttrs[a]) {
+				representation[a] = vals[actCounter++];//TODO error here
+			}else {
+				representation[a] = Double.NaN;
+			}
+		}
+		
+		return tmpInstance.copy(representation);
+		
+	}
+	
+	public Instance getCentroid() {
+		validate();
+		return this.inverseInstanceTransform(this.gaussEst.getMean());
 	}
 
 }
