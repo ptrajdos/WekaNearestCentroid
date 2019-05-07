@@ -250,6 +250,7 @@
                 <include>**/*~</include>
                 <include>**/.attach_pid*</include>
                 <include>**/hs_err_pid*</include>
+                <include>src/test/resources/wekarefs/</include>
               </includes>
               <followSymlinks>false</followSymlinks>
             </fileset>
