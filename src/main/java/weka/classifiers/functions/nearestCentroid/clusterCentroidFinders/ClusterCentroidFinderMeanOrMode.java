@@ -8,7 +8,10 @@ import weka.core.Instance;
 import weka.core.Instances;
 
 /**
- * @author pawel
+ * Abstract class  -- a base for ClusterCentroidsFinders
+ * @author pawel trajdos
+ * @since 3.0.0
+ * @version 3.0.0
  *
  */
 public class ClusterCentroidFinderMeanOrMode extends AClusterCentroidFinder {

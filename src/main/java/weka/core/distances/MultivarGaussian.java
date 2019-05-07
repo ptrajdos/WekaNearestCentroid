@@ -4,6 +4,15 @@ import no.uib.cipr.matrix.DenseVector;
 import no.uib.cipr.matrix.Vector;
 import weka.estimators.MultivariateGaussianEstimator;
 
+/**
+ * The class allows using the  <b> Multivariate Gaussian </b> distribution to calculate the <b>Mahalanobis distance</b>
+ * 
+ * @author pawel trajdos
+ * @since 3.0.0
+ * @version 3.0.0
+ *
+ */
+
 public class MultivarGaussian extends MultivariateGaussianEstimator {
 
 	/**

@@ -247,7 +247,7 @@ public class MahalanobisDistance implements DistanceFunction, Serializable, Opti
 	 */
 	@Override
 	public void postProcessDistances(double[] distances) {
-		// TODO Auto-generated method stub
+		// TODO No need for post-processing?
 
 	}
 
@@ -256,7 +256,7 @@ public class MahalanobisDistance implements DistanceFunction, Serializable, Opti
 	 */
 	@Override
 	public void update(Instance ins) {
-		// TODO Auto-generated method stub
+		// TODO unimplemented yet
 
 	}
 

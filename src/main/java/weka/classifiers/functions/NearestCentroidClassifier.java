@@ -22,6 +22,7 @@ import weka.tools.SerialCopier;
 import weka.tools.data.InstancesOperator;
 
 /**
+ * Class implementing Nearest centroid classifier
  * @author Pawel Trajdos
  * @since 0.0.1
  * @version 3.0.0
@@ -34,16 +35,20 @@ public class NearestCentroidClassifier extends AbstractClassifier{
 	 */
 	private static final long serialVersionUID = 8462836067571523903L;
 	
+	/**
+	 * Prototype for cluster prototypes
+	 */
 	protected IClusterPrototype clusProto;
 	
+	/**
+	 * Cluster/Class prototype/centroid
+	 */
 	protected IClusterPrototype[] prototypes;
 	/**
 	 * 
 	 */
 	public NearestCentroidClassifier() {
-		
 		this.clusProto = new MahalanobisPrototype();
-
 	}
 
 	/**
@@ -66,9 +71,6 @@ public class NearestCentroidClassifier extends AbstractClassifier{
 	}
 	
 	
-	
-	
-
 	/* (non-Javadoc)
 	 * @see weka.classifiers.AbstractClassifier#distributionForInstance(weka.core.Instance)
 	 */

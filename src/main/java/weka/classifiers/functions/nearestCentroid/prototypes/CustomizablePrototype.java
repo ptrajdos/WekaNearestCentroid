@@ -4,14 +4,11 @@
 package weka.classifiers.functions.nearestCentroid.prototypes;
 
 import java.io.Serializable;
-import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import weka.classifiers.functions.nearestCentroid.ICentralPointFinder;
 import weka.classifiers.functions.nearestCentroid.IClusterCentroidFinder;
 import weka.classifiers.functions.nearestCentroid.IClusterPrototype;
-import weka.classifiers.functions.nearestCentroid.centralPointFinders.CentralPointFinderMean;
 import weka.classifiers.functions.nearestCentroid.clusterCentroidFinders.ClusterCentroidFinderMeanOrMode;
 import weka.core.DistanceFunction;
 import weka.core.EuclideanDistance;
@@ -23,7 +20,7 @@ import weka.core.OptionHandler;
 import weka.core.Utils;
 
 /**
- * A class representing cluster prototype
+ * A class representing a customizable cluster prototype
  * 
  * @author pawel trajdos
  * @since 3.0.0
@@ -53,7 +50,7 @@ public class CustomizablePrototype implements IClusterPrototype, Serializable, O
 	protected Instance centralPoint;
 
 	/**
-	 * 
+	 * Default constructor
 	 */
 	public CustomizablePrototype() {
 		
@@ -178,7 +175,7 @@ public class CustomizablePrototype implements IClusterPrototype, Serializable, O
 		      }
 		      String className = centroidFinderOptions[0];
 		      centroidFinderOptions[0] = "";
-		      this.setCentroidFinder( (IClusterCentroidFinder) Utils.forName(ICentralPointFinder.class, className, centroidFinderOptions));
+		      this.setCentroidFinder( (IClusterCentroidFinder) Utils.forName(IClusterCentroidFinder.class, className, centroidFinderOptions));
 	    }else
 	    	this.setCentroidFinder(new ClusterCentroidFinderMeanOrMode());
 		
@@ -190,10 +187,10 @@ Vector<String> options = new Vector<String>();
 	    
 
 	    options.add("-D");
-	    options.add(this.distanceFunction.getClass().getName()+" "+Utils.joinOptions(this.distanceFunction.getOptions())); 
+	    options.add(this.distanceFunction.getClass().getName()+" "+Utils.joinOptions(this.distanceFunction.getOptions()).trim()); 
 	    
 	    options.add("-CF");
-	    String finderOptions = this.centralPoint instanceof OptionHandler? " "+Utils.joinOptions(((OptionHandler) this.centroidFinder).getOptions()): ""; 
+	    String finderOptions = this.centralPoint instanceof OptionHandler? " "+Utils.joinOptions(((OptionHandler) this.centroidFinder).getOptions()).trim(): ""; 
 	    options.add(this.centroidFinder.getClass().getName()+finderOptions);
 	    
 	    

@@ -7,7 +7,7 @@
   <groupId>com.github.ptrajdos</groupId>
   <artifactId>WekaNearestCentroid</artifactId>
   <packaging>jar</packaging>
-  <version>2.0.0</version>
+  <version>3.0.0</version>
 
   <name>Weka Nearest Centroid Classifier</name>
   <description> Weka implementation of the Nearest Centroid Classifier </description>

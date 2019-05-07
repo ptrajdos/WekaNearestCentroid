@@ -11,7 +11,10 @@ import weka.core.Instances;
 import weka.core.distances.MahalanobisDistance;
 
 /**
- * @author pawel
+ * The class represents a cluster prototype using the mahalanobis distance.
+ * @author pawel trajdos
+ * @since 3.0.0
+ * @version 3.0.0
  *
  */
 public class MahalanobisPrototype implements IClusterPrototype, Serializable {
@@ -21,10 +24,13 @@ public class MahalanobisPrototype implements IClusterPrototype, Serializable {
 	 */
 	private static final long serialVersionUID = 5919371807807783627L;
 	
+	/**
+	 * Mahalanobis distance object to use 
+	 */
 	protected MahalanobisDistance mahDist;
 
 	/**
-	 * 
+	 * Default constructor
 	 */
 	public MahalanobisPrototype() {
 		this.mahDist = new MahalanobisDistance();
