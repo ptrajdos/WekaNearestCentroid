@@ -3,8 +3,12 @@
 weka.classifiers.functions.NearestCentroidClassifier=\
  weka.classifiers.functions.NearestCentroidClassifier
 
-weka.classifiers.functions.nearestCentroid.ICentroidFinder=\
- weka.classifiers.functions.nearestCentroid.prototypeFinders
+weka.classifiers.functions.nearestCentroid.IClusterPrototype=\
+ weka.classifiers.functions.nearestCentroid.prototypes
+
+
+weka.classifiers.functions.nearestCentroid.IClusterCentroidFinder=\
+ weka.classifiers.functions.nearestCentroid.clusterCentroidFinders
 
 
  weka.core.DistanceFunction=\
