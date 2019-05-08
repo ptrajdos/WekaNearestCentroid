@@ -1,9 +1,9 @@
 package weka.core.distances;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 
 import org.junit.Test;
@@ -12,6 +12,7 @@ import weka.core.Attribute;
 import weka.core.DenseInstance;
 import weka.core.Instance;
 import weka.core.Instances;
+import weka.core.UtilsPT;
 
 public class MahalanobisDistanceTest {
 
@@ -65,7 +66,7 @@ public class MahalanobisDistanceTest {
 	      
 	      Instance gettedMean = mahD.getCentroid();
 	      double[] instanceRep = gettedMean.toDoubleArray();
-	      assertTrue("Centroid", Arrays.equals(instanceRep, instanceProto));
+	      assertTrue("Centroid Comparison", UtilsPT.compareDoubleArrays(instanceRep, instanceProto));
 	}
 	@Test
 	public void test2() {
@@ -120,7 +121,7 @@ public class MahalanobisDistanceTest {
 	      
 	      Instance gettedMean = mahD.getCentroid();
 	      double[] instanceRep = gettedMean.toDoubleArray();
-	      assertTrue("Centroid", Arrays.equals(instanceRep, instanceProto));
+	      assertTrue("Centroid Comparison", UtilsPT.compareDoubleArrays(instanceRep, instanceProto));
 	      
 	      
 	      

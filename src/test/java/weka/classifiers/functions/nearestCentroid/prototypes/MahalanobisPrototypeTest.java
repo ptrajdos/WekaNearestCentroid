@@ -12,6 +12,7 @@ import weka.core.Attribute;
 import weka.core.DenseInstance;
 import weka.core.Instance;
 import weka.core.Instances;
+import weka.core.UtilsPT;
 
 public class MahalanobisPrototypeTest {
 
@@ -46,7 +47,7 @@ public class MahalanobisPrototypeTest {
 			mahProt.build(dataset);
 			Instance centroid = mahProt.getCenterPoint();
 			double[] expCentroid = new double[] {0,Double.NaN,Double.NaN};
-			assertTrue("Centroid check ", Arrays.equals(expCentroid, centroid.toDoubleArray()));
+			assertTrue("Centroid check ", UtilsPT.compareDoubleArrays(expCentroid, centroid.toDoubleArray()));
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail("An exception has been caught");
