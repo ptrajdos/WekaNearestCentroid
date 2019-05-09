@@ -7,7 +7,7 @@
   <groupId>com.github.ptrajdos</groupId>
   <artifactId>WekaNearestCentroid</artifactId>
   <packaging>jar</packaging>
-  <version>3.0.1</version>
+  <version>3.0.2</version>
 
   <name>Weka Nearest Centroid Classifier</name>
   <description> Weka implementation of the Nearest Centroid Classifier </description>
@@ -87,7 +87,7 @@
     <dependency>
         <groupId>com.github.ptrajdos</groupId>
         <artifactId>WekaTools</artifactId>
-        <version>[0.5.2,)</version>
+        <version>[0.5.3,)</version>
     </dependency>
 
 
@@ -251,6 +251,8 @@
                 <include>**/.attach_pid*</include>
                 <include>**/hs_err_pid*</include>
                 <include>src/test/resources/wekarefs/</include>
+                <include>doc/**</include>
+                <include>lib/**</include>
               </includes>
               <followSymlinks>false</followSymlinks>
             </fileset>

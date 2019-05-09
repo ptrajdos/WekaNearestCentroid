@@ -9,6 +9,7 @@ import java.util.Vector;
 
 import weka.classifiers.AbstractClassifier;
 import weka.classifiers.functions.nearestCentroid.IClusterPrototype;
+import weka.classifiers.functions.nearestCentroid.prototypes.CustomizablePrototype;
 import weka.classifiers.functions.nearestCentroid.prototypes.MahalanobisPrototype;
 import weka.core.Capabilities;
 import weka.core.Capabilities.Capability;
@@ -48,6 +49,7 @@ public class NearestCentroidClassifier extends AbstractClassifier{
 	 * 
 	 */
 	public NearestCentroidClassifier() {
+		super();
 		this.clusProto = new MahalanobisPrototype();
 	}
 
@@ -121,7 +123,7 @@ public class NearestCentroidClassifier extends AbstractClassifier{
 
 	    options.add("-P");
 	    String clusProtoOptions = this.clusProto instanceof OptionHandler? " "+Utils.joinOptions( ((OptionHandler) this.clusProto).getOptions()): " "; 
-	    options.add(this.clusProto.getClass().getName()+clusProtoOptions); 
+	    options.add(this.clusProto.getClass().getName()+" "+clusProtoOptions); 
 	    
 	    Collections.addAll(options, super.getOptions());
 	    
@@ -141,7 +143,7 @@ public class NearestCentroidClassifier extends AbstractClassifier{
 	@Override
 	public void setOptions(String[] options) throws Exception {
 		
-		String clusterProtoString = Utils.getOption('P', options);
+		String clusterProtoString = Utils.getOption("P", options);
 	    if(clusterProtoString.length() != 0) {
 	      String clusterProtoClassSpec[] = Utils.splitOptions(clusterProtoString);
 	      if(clusterProtoClassSpec.length == 0) { 

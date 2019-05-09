@@ -3,3 +3,4 @@ weka.classifiers.functions.nearestCentroid.ICentroidFinder=weka.gui.GenericObjec
 weka.classifiers.functions.nearestCentroid.IClusterPrototype=weka.gui.GenericObjectEditor
 weka.classifiers.functions.nearestCentroid.IClusterCentroidFinder=weka.gui.GenericObjectEditor 
 weka.core.distances.MahalanobisDistance=weka.gui.GenericObjectEditor
+weka.classifiers.functions.nearestCentroid.prototypes.MahalanobisPrototype=weka.gui.GenericObjectEditor

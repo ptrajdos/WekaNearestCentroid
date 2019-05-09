@@ -6,7 +6,7 @@
 PackageName=WekaNearestCentroid
 
 # Version (required)
-Version=3.0.1
+Version=3.0.2
 
 #Date
 Date=2019-05-08
@@ -43,4 +43,4 @@ URLhttps://github.com/ptrajdos/WekaNearestCentroid.git
 #Related=
 
 # Dependencies
-Depends=weka (>=3.7.6)
+Depends=weka (>=3.7.6), WekaTools (>=0.5.3)

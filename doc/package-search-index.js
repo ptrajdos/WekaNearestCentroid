@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"weka.classifiers.functions"},{"l":"weka.classifiers.functions.nearestCentroid"},{"l":"weka.classifiers.functions.nearestCentroid.prototypeFinders"}]

@@ -138,7 +138,7 @@ public class CustomizablePrototype implements IClusterPrototype, Serializable, O
 		 
 		 newVector.addElement(new Option(
 			      "\tThe centroid calculator object to use "+
-		          "(default: weka.classifiers.functions.nearestCentroid.prototypeFinders.MeanCentroidFinder).\n",
+		          "(default: weka.classifiers.functions.nearestCentroid.clusterCentroidFinders.ClusterCentroidFinderMeanOrMode).\n",
 			      "CF", 0, "-CF"));
 		 
 		    
