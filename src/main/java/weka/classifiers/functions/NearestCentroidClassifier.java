@@ -105,7 +105,7 @@ public class NearestCentroidClassifier extends AbstractClassifier{
 		 newVector.addElement(new Option(
 			      "\tThe cluster prototype to use "+
 		          "(default: weka.classifiers.functions.nearestCentroid.prototypes.MahalanobisPrototype).\n",
-			      "P", 0, "-P"));
+			      "P", 1, "-P"));
 		 newVector.addAll(Collections.list(super.listOptions()));
 		    
 		return newVector.elements();
