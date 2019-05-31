@@ -6,10 +6,10 @@
 PackageName=WekaNearestCentroid
 
 # Version (required)
-Version=3.0.3
+Version=3.0.4
 
 #Date
-Date=2019-05-08
+Date=2019-05-31
 
 # Title (required)
 Title= The implementation of the Nearest Centroid algorithm
@@ -43,4 +43,4 @@ URLhttps://github.com/ptrajdos/WekaNearestCentroid.git
 #Related=
 
 # Dependencies
-Depends=weka (>=3.7.6), WekaTools (>=0.5.3)
+Depends=weka (>=3.7.6), WekaTools (>=0.8.0)

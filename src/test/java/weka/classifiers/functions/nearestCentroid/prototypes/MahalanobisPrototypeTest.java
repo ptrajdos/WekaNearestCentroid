@@ -13,6 +13,7 @@ import weka.core.DenseInstance;
 import weka.core.Instance;
 import weka.core.Instances;
 import weka.core.UtilsPT;
+import weka.tools.SerialCopier;
 
 public class MahalanobisPrototypeTest {
 
@@ -53,6 +54,12 @@ public class MahalanobisPrototypeTest {
 			fail("An exception has been caught");
 		}
 	      
+	      try {
+	    	  MahalanobisPrototype protoC = (MahalanobisPrototype) SerialCopier.makeCopy(mahProt);
+	      }catch(Exception e) {
+	    	  e.printStackTrace();
+	    	  //fail("Serialization is not possible");
+	      }
 	      
 	}
 
