@@ -9,7 +9,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Vector;
 
+import weka.core.DenseInstance;
 import weka.core.DistanceFunction;
+import weka.core.EuclideanDistance;
 import weka.core.Instance;
 import weka.core.Instances;
 import weka.core.Option;
@@ -24,7 +26,7 @@ import weka.core.neighboursearch.PerformanceStats;
  * All <b>nominal/string/date</b> attributes are <b>ignored</b> since for such attributes the variance/covariance cannot be calculated.
  * @author pawel trajdos
  * @since 3.0.0
- * @version 3.0.0
+ * @version 3.0.4
  *
  */
 public class MahalanobisDistance implements DistanceFunction, Serializable, OptionHandler, RevisionHandler {
@@ -47,6 +49,8 @@ public class MahalanobisDistance implements DistanceFunction, Serializable, Opti
 	protected List<Integer> activeIndices;
 	
 	protected MultivarGaussian gaussEst;
+	
+	protected boolean noInstances=false;
 	
 
 	/**
@@ -229,6 +233,11 @@ public class MahalanobisDistance implements DistanceFunction, Serializable, Opti
 	public double distance(Instance first, Instance second, double cutOffValue, PerformanceStats stats) {
 		validate();
 		
+		if(this.noInstances) {
+			EuclideanDistance eucDist = new EuclideanDistance(this.refData);
+			return eucDist.distance(first, second,cutOffValue,stats);
+		}
+		
 		double[] inst1 = this.transformInstance(first);
 		double[] inst2 = this.transformInstance(second);
 		
@@ -271,7 +280,7 @@ public class MahalanobisDistance implements DistanceFunction, Serializable, Opti
 
 	@Override
 	public String getRevision() {
-		return "3.0.0";
+		return "3.0.4";
 	}
 	
 	protected void invalidate() {
@@ -309,6 +318,10 @@ public class MahalanobisDistance implements DistanceFunction, Serializable, Opti
 		this.gaussEst = new MultivarGaussian();
 		
 		int numInst = this.refData.numInstances();
+		if(numInst ==0) {
+			this.noInstances=true;
+			return;
+		}
 		int numValAttrs = this.activeIndices.size();
 		double[] instWeights = new double[numInst];
 		
@@ -323,8 +336,11 @@ public class MahalanobisDistance implements DistanceFunction, Serializable, Opti
 				instRepresentation[i][a] = iRep[this.activeIndices.get(a)];
 			}
 		}
-		
-		this.gaussEst.estimate(instRepresentation, instWeights);
+		try {
+		this.gaussEst.estimate(instRepresentation, instWeights);//TODO lack of instances?
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	protected double[] transformInstance(Instance inst) {
@@ -359,6 +375,14 @@ public class MahalanobisDistance implements DistanceFunction, Serializable, Opti
 	
 	public Instance getCentroid() {
 		validate();
+		if(this.noInstances) {
+			int numAttrs = this.refData.numAttributes();
+			double[] vals =  new double[numAttrs];
+			vals[this.refData.classIndex()] = Double.NaN;
+			Instance tmp = new DenseInstance(1.0, vals);
+			tmp.setDataset(this.refData);
+			return tmp;
+		}
 		return this.inverseInstanceTransform(this.gaussEst.getMean());
 	}
 

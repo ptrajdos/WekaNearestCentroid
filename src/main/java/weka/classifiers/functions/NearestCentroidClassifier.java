@@ -9,7 +9,6 @@ import java.util.Vector;
 
 import weka.classifiers.AbstractClassifier;
 import weka.classifiers.functions.nearestCentroid.IClusterPrototype;
-import weka.classifiers.functions.nearestCentroid.prototypes.CustomizablePrototype;
 import weka.classifiers.functions.nearestCentroid.prototypes.MahalanobisPrototype;
 import weka.core.Capabilities;
 import weka.core.Capabilities.Capability;
@@ -26,7 +25,7 @@ import weka.tools.data.InstancesOperator;
  * Class implementing Nearest centroid classifier
  * @author Pawel Trajdos
  * @since 0.0.1
- * @version 3.0.0
+ * @version 3.0.4
  *
  */
 public class NearestCentroidClassifier extends AbstractClassifier{
@@ -45,6 +44,8 @@ public class NearestCentroidClassifier extends AbstractClassifier{
 	 * Cluster/Class prototype/centroid
 	 */
 	protected IClusterPrototype[] prototypes;
+	
+	protected boolean[] isPrototypeActive;
 	/**
 	 * 
 	 */
@@ -59,15 +60,18 @@ public class NearestCentroidClassifier extends AbstractClassifier{
 	 */
 	@Override
 	public void buildClassifier(Instances data) throws Exception {
-		this.getCapabilities().testWithFail(data);
+		if(!this.m_DoNotCheckCapabilities)
+			this.getCapabilities().testWithFail(data);
 		
 		Instances[] splittedSets = InstancesOperator.classSpecSplit(data);
 		
 		int numClasses = splittedSets.length;
+		this.isPrototypeActive = new boolean[numClasses];
 		this.prototypes = new IClusterPrototype[numClasses];
 		for(int c =0;c<numClasses;c++) {
 			this.prototypes[c] = (IClusterPrototype) SerialCopier.makeCopy(this.clusProto);
 			this.prototypes[c].build(splittedSets[c]);
+			this.isPrototypeActive[c] = splittedSets[c].numInstances()>0? true:false;
 		}
 		
 	}
@@ -84,7 +88,7 @@ public class NearestCentroidClassifier extends AbstractClassifier{
 		double sum=0;
 		double distance = 0;
 		for(int c=0;c<numClasses;c++) {
-			distance  = this.prototypes[c].distance(instance);
+			distance  = this.isPrototypeActive[c]? this.prototypes[c].distance(instance):Double.POSITIVE_INFINITY;
 			distribution[c] = Math.exp(-distance);
 			sum+= distribution[c];
 		}

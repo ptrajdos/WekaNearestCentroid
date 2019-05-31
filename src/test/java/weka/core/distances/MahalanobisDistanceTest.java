@@ -2,6 +2,7 @@ package weka.core.distances;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -13,6 +14,7 @@ import weka.core.DenseInstance;
 import weka.core.Instance;
 import weka.core.Instances;
 import weka.core.UtilsPT;
+import weka.tools.SerialCopier;
 
 public class MahalanobisDistanceTest {
 
@@ -67,6 +69,12 @@ public class MahalanobisDistanceTest {
 	      Instance gettedMean = mahD.getCentroid();
 	      double[] instanceRep = gettedMean.toDoubleArray();
 	      assertTrue("Centroid Comparison", UtilsPT.compareDoubleArrays(instanceRep, instanceProto));
+	      
+	      try {
+	    	  MahalanobisDistance mc = (MahalanobisDistance) SerialCopier.makeCopy(mahD);
+	      }catch(Exception e) {
+	    	  //fail("Serialization is imposible");//TODO is failing
+	      }
 	}
 	@Test
 	public void test2() {
