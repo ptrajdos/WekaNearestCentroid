@@ -73,7 +73,7 @@ public class MahalanobisDistanceTest {
 	      try {
 	    	  MahalanobisDistance mc = (MahalanobisDistance) SerialCopier.makeCopy(mahD);
 	      }catch(Exception e) {
-	    	  //fail("Serialization is imposible");//TODO is failing
+	    	  fail("Serialization is imposible");//TODO is failing
 	      }
 	}
 	@Test

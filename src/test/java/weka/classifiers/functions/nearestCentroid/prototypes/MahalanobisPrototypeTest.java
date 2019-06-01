@@ -58,7 +58,7 @@ public class MahalanobisPrototypeTest {
 	    	  MahalanobisPrototype protoC = (MahalanobisPrototype) SerialCopier.makeCopy(mahProt);
 	      }catch(Exception e) {
 	    	  e.printStackTrace();
-	    	  //fail("Serialization is not possible");
+	    	  fail("Serialization is not possible");
 	      }
 	      
 	}
