@@ -2,6 +2,12 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                       http://maven.apache.org/xsd/maven-4.0.0.xsd">
+        <!--                <parent>
+                      <groupId>com.github.ptrajdos</groupId>
+	    <artifactId>WekaEssentials</artifactId>
+	    <version>v0.1.1</version>
+                      </parent>
+                      -->
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.github.ptrajdos</groupId>
@@ -36,18 +42,14 @@
  </scm>
 
 <repositories>
-   <!--<repository>
-       <id>CogcompSoftware</id>
-       <name>CogcompSoftware</name>
-       <url>http://cogcomp.org/m2repo/</url>
-     </repository>
-   -->
-     <!--<repository>
+   
+    <repository>
         <id>project-repo</id>
         <name>project</name>
-        <url>file:${project.basedir}/src/lib</url>
+        <url>file:${project.basedir}/libs</url>
     </repository>
-  -->
+    
+  
   </repositories>
 
   <distributionManagement>
@@ -64,6 +66,9 @@
   
    
    <dependencies>
+   
+  
+
 
     <dependency>
       <groupId>junit</groupId>
@@ -89,15 +94,14 @@
       <scope>test</scope>
     </dependency>
     <!-- mtj library modified by Weka authors -->
-   
-  <!-- <dependency>
+    <dependency>
       <groupId>com.googlecode.matrix-toolkits-java</groupId>
       <artifactId>mtj</artifactId>
       <version>1.0.4-WEKA</version>
       <type>jar</type>
       <scope>compile</scope>
     </dependency>
--->
+
     <dependency>
         <groupId>com.github.ptrajdos</groupId>
         <artifactId>WekaTools</artifactId>

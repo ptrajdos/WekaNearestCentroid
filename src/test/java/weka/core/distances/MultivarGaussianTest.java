@@ -31,7 +31,7 @@ public class MultivarGaussianTest {
 			MultivarGaussian copy = (MultivarGaussian) SerialCopier.makeCopy(gauss);
 		}catch(Exception e) {
 			e.printStackTrace();
-			//fail("No serialization is possible");//TODO sth is wrong!
+			fail("No serialization is possible");//TODO sth is wrong!
 		}
 	}
 
