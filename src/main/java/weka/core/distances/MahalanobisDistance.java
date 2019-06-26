@@ -26,7 +26,7 @@ import weka.core.neighboursearch.PerformanceStats;
  * All <b>nominal/string/date</b> attributes are <b>ignored</b> since for such attributes the variance/covariance cannot be calculated.
  * @author pawel trajdos
  * @since 3.0.0
- * @version 3.1.0
+ * @version 3.0.4
  *
  */
 public class MahalanobisDistance implements DistanceFunction, Serializable, OptionHandler, RevisionHandler {
@@ -52,22 +52,6 @@ public class MahalanobisDistance implements DistanceFunction, Serializable, Opti
 	
 	protected boolean noInstances=false;
 	
-	protected boolean normalize=false;
-	
-
-	/**
-	 * @return the normalize
-	 */
-	public boolean isNormalize() {
-		return this.normalize;
-	}
-
-	/**
-	 * @param normalize the normalize to set
-	 */
-	public void setNormalize(boolean normalize) {
-		this.normalize = normalize;
-	}
 
 	/**
 	 * 
@@ -97,9 +81,6 @@ public class MahalanobisDistance implements DistanceFunction, Serializable, Opti
 
 	    result.addElement(new Option("\tInvert matching sense of column indices.",
 	      "V", 0, "-V"));
-	    
-	    result.addElement(new Option("\tDistance normalization.",
-	  	      "N", 0, "-N"));
 
 	    return result.elements();
 	}
@@ -119,7 +100,6 @@ public class MahalanobisDistance implements DistanceFunction, Serializable, Opti
 		    }
 
 		    setInvertSelection(Utils.getFlag('V', options));
-		    setNormalize(Utils.getFlag('N', options));
 
 	}
 
@@ -138,8 +118,6 @@ public class MahalanobisDistance implements DistanceFunction, Serializable, Opti
 	    if (getInvertSelection()) {
 	      result.add("-V");
 	    }
-	    if(isNormalize())
-	    	result.add("-N");
 
 	    return result.toArray(new String[result.size()]);
 	}
@@ -270,11 +248,6 @@ public class MahalanobisDistance implements DistanceFunction, Serializable, Opti
 	        stats.incrCoordCount();
 	      }
 		
-		if(isNormalize()) {
-			int numAttrs = this.activeIndices.size();
-			dist/= Math.sqrt(numAttrs);
-		}
-		
 		return dist;
 	}
 
@@ -307,7 +280,7 @@ public class MahalanobisDistance implements DistanceFunction, Serializable, Opti
 
 	@Override
 	public String getRevision() {
-		return "3.0.5";
+		return "3.0.4";
 	}
 	
 	protected void invalidate() {
