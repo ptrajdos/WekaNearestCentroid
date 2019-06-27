@@ -1,0 +1,5 @@
+weka.classifiers.functions
+weka.classifiers.functions.nearestCentroid
+weka.classifiers.functions.nearestCentroid.clusterCentroidFinders
+weka.classifiers.functions.nearestCentroid.prototypes
+weka.core.distances
