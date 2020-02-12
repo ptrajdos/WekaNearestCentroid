@@ -26,7 +26,7 @@ import weka.core.neighboursearch.PerformanceStats;
  * All <b>nominal/string/date</b> attributes are <b>ignored</b> since for such attributes the variance/covariance cannot be calculated.
  * @author pawel trajdos
  * @since 3.0.0
- * @version 3.1.0
+ * @version 3.1.1
  *
  */
 public class MahalanobisDistance implements DistanceFunction, Serializable, OptionHandler, RevisionHandler {
@@ -295,7 +295,7 @@ public class MahalanobisDistance implements DistanceFunction, Serializable, Opti
 
 	@Override
 	public String getRevision() {
-		return "3.0.5";
+		return "3.1.1";
 	}
 	
 	protected void invalidate() {
@@ -304,6 +304,8 @@ public class MahalanobisDistance implements DistanceFunction, Serializable, Opti
 	
 	protected void validate() {
 		if(!this.validated) {
+			if(this.refData == null)
+				return;
 			initialise();
 			this.validated = true;
 		}	
@@ -390,6 +392,9 @@ public class MahalanobisDistance implements DistanceFunction, Serializable, Opti
 	
 	public Instance getCentroid() {
 		validate();
+		if(this.validated == false)
+			return null;
+		
 		if(this.noInstances) {
 			int numAttrs = this.refData.numAttributes();
 			double[] vals =  new double[numAttrs];

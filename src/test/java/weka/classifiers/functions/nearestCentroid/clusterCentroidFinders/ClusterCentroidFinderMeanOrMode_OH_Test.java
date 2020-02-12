@@ -12,7 +12,7 @@ public class ClusterCentroidFinderMeanOrMode_OH_Test extends OptionHandlerTest {
 	}
 	
 	public ClusterCentroidFinderMeanOrMode_OH_Test(String name) {
-		super(name, ClusterCentroidFinderMeanOrMode.class.toString());
+		super(name, ClusterCentroidFinderMeanOrMode.class.getCanonicalName());
 	}
 
 	public static Test suite() {

@@ -18,6 +18,7 @@ import weka.core.NormalizableDistance;
 import weka.core.Option;
 import weka.core.OptionHandler;
 import weka.core.Utils;
+import weka.core.UtilsPT;
 
 /**
  * A class representing a customizable cluster prototype
@@ -147,52 +148,22 @@ public class CustomizablePrototype implements IClusterPrototype, Serializable, O
 
 	@Override
 	public void setOptions(String[] options) throws Exception {
-		String distanceFunString = Utils.getOption('D', options);
-	    if(distanceFunString.length() != 0) {
-	      String distanceFunClassSpec[] = Utils.splitOptions(distanceFunString);
-	      if(distanceFunClassSpec.length == 0) { 
-	        throw new Exception("Invalid Distance function " +
-	                            "specification string."); 
-	      }
-	      String className = distanceFunClassSpec[0];
-	      distanceFunClassSpec[0] = "";
-
-	      this.setDistanceFunction( (DistanceFunction)
-	                  Utils.forName( NormalizableDistance.class, 
-	                                 className, 
-	                                 distanceFunClassSpec)
-	                                        );
-	    }
-	    else 
-	      this.setDistanceFunction(new EuclideanDistance());
-	    
-	    String centroidFinderString = Utils.getOption("CF", options);
-	    if(centroidFinderString.length() !=0) {
-	    	String[] centroidFinderOptions = Utils.splitOptions(centroidFinderString);
-	    	if(centroidFinderOptions.length == 0) { 
-		        throw new Exception("Invalid Distance function " +
-		                            "specification string."); 
-		      }
-		      String className = centroidFinderOptions[0];
-		      centroidFinderOptions[0] = "";
-		      this.setCentroidFinder( (IClusterCentroidFinder) Utils.forName(IClusterCentroidFinder.class, className, centroidFinderOptions));
-	    }else
-	    	this.setCentroidFinder(new ClusterCentroidFinderMeanOrMode());
 		
+		this.setDistanceFunction((DistanceFunction) UtilsPT.parseObjectOptions(options, "D", new EuclideanDistance(), NormalizableDistance.class));
+		
+		this.setCentroidFinder((IClusterCentroidFinder) UtilsPT.parseObjectOptions(options, "CF", new ClusterCentroidFinderMeanOrMode(), IClusterCentroidFinder.class));
+	   
 	}
 
 	@Override
 	public String[] getOptions() {
 Vector<String> options = new Vector<String>();
-	    
 
 	    options.add("-D");
-	    options.add(this.distanceFunction.getClass().getName()+" "+Utils.joinOptions(this.distanceFunction.getOptions()).trim()); 
+	    options.add(UtilsPT.getClassAndOptions(this.distanceFunction));
 	    
 	    options.add("-CF");
-	    String finderOptions = this.centralPoint instanceof OptionHandler? " "+Utils.joinOptions(((OptionHandler) this.centroidFinder).getOptions()).trim(): ""; 
-	    options.add(this.centroidFinder.getClass().getName()+finderOptions);
-	    
+	    options.add(UtilsPT.getClassAndOptions(this.centroidFinder));
 	    
 	    return options.toArray(new String[0]);
 	}

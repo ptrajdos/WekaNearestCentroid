@@ -12,7 +12,7 @@ public class MahalanobisDistance_OH_Test extends OptionHandlerTest {
 	}
 	
 	public MahalanobisDistance_OH_Test(String name) {
-		super(name,MahalanobisDistance.class.toString());
+		super(name,MahalanobisDistance.class.getCanonicalName());
 	}
 	
 

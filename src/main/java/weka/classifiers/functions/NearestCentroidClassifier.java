@@ -15,9 +15,9 @@ import weka.core.Capabilities.Capability;
 import weka.core.Instance;
 import weka.core.Instances;
 import weka.core.Option;
-import weka.core.OptionHandler;
 import weka.core.RevisionUtils;
 import weka.core.Utils;
+import weka.core.UtilsPT;
 import weka.tools.SerialCopier;
 import weka.tools.data.InstancesOperator;
 
@@ -25,7 +25,7 @@ import weka.tools.data.InstancesOperator;
  * Class implementing Nearest centroid classifier
  * @author Pawel Trajdos
  * @since 0.0.1
- * @version 3.0.4
+ * @version 4.0.0
  *
  */
 public class NearestCentroidClassifier extends AbstractClassifier{
@@ -124,11 +124,10 @@ public class NearestCentroidClassifier extends AbstractClassifier{
 
 	    Vector<String> options = new Vector<String>();
 	    
-
-	    options.add("-P");
-	    String clusProtoOptions = this.clusProto instanceof OptionHandler? " "+Utils.joinOptions( ((OptionHandler) this.clusProto).getOptions()): " "; 
-	    options.add(this.clusProto.getClass().getName()+" "+clusProtoOptions); 
 	    
+	    
+	    options.add("-P");
+	    options.add(UtilsPT.getClassAndOptions(this.getClusProto()));
 	    Collections.addAll(options, super.getOptions());
 	    
 	    return options.toArray(new String[0]);
@@ -147,25 +146,8 @@ public class NearestCentroidClassifier extends AbstractClassifier{
 	@Override
 	public void setOptions(String[] options) throws Exception {
 		
-		String clusterProtoString = Utils.getOption("P", options);
-	    if(clusterProtoString.length() != 0) {
-	      String clusterProtoClassSpec[] = Utils.splitOptions(clusterProtoString);
-	      if(clusterProtoClassSpec.length == 0) { 
-	        throw new Exception("Invalid Cluster prototype " +
-	                            "specification string."); 
-	      }
-	      String className = clusterProtoClassSpec[0];
-	      clusterProtoClassSpec[0] = "";
-
-	      this.setClusProto( (IClusterPrototype)
-	                  Utils.forName( IClusterPrototype.class, 
-	                                 className, 
-	                                 clusterProtoClassSpec)
-	                                        );
-	    }
-	    else 
-	      this.setClusProto(new MahalanobisPrototype());
-	    
+		this.setClusProto((IClusterPrototype) UtilsPT.parseObjectOptions(options, "P", new MahalanobisPrototype(), IClusterPrototype.class));
+		
 		super.setOptions(options);
 		
 	}
@@ -212,7 +194,9 @@ public class NearestCentroidClassifier extends AbstractClassifier{
 	 * 
 	 * @return The array of calculated centroids
 	 */
-	public Instance[] getCentroids() {
+	public Instance[] getCentroids() throws Exception {
+		if(this.prototypes == null)
+			throw new Exception("No model has been built yet!");
 		int numClasses = this.prototypes.length;
 		Instance[] insts = new Instance[numClasses];
 		for(int c =0;c<numClasses;c++) {
