@@ -11,7 +11,7 @@ public class CustomizablePrototype_OH_Test extends  OptionHandlerTest {
 	}
 	
 	public CustomizablePrototype_OH_Test(String name) {
-		super(name, CustomizablePrototype.class.toString());
+		super(name, CustomizablePrototype.class.getCanonicalName());
 	}
 
 

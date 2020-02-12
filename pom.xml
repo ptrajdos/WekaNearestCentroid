@@ -13,7 +13,7 @@
   <groupId>com.github.ptrajdos</groupId>
   <artifactId>WekaNearestCentroid</artifactId>
   <packaging>jar</packaging>
-  <version>3.1.0</version>
+  <version>4.0.0</version>
 
   <name>Weka Nearest Centroid Classifier</name>
   <description> Weka implementation of the Nearest Centroid Classifier </description>
@@ -181,7 +181,32 @@
 
     
       <plugins>
-
+ <plugin>
+    <groupId>org.jacoco</groupId>
+    <artifactId>jacoco-maven-plugin</artifactId>
+    <version>0.8.2</version>
+    <executions>
+      <execution>
+        <goals>
+          <goal>prepare-agent</goal>
+        </goals>
+      </execution>
+      <!-- attached to Maven test phase -->
+      <execution>
+        <id>report</id>
+        <phase>test</phase>
+        <goals>
+          <goal>report</goal>
+        </goals>
+      </execution>
+ <execution>
+            <id>prepare-agent</id>
+            <goals>
+                <goal>prepare-agent</goal>
+            </goals>
+        </execution>
+    </executions>
+  </plugin>
 
 
 
