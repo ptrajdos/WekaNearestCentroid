@@ -1,3 +1,5 @@
+[![Coverage Status](https://coveralls.io/repos/github/ptrajdos/WekaNearestCentroid/badge.svg?branch=master)](https://coveralls.io/github/ptrajdos/WekaNearestCentroid?branch=master)
+
 # WekaNearestCentroid
 The package contains the implementation of the Nearest Mean classifier
 
