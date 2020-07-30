@@ -17,7 +17,6 @@ import weka.core.Instances;
 import weka.core.NormalizableDistance;
 import weka.core.Option;
 import weka.core.OptionHandler;
-import weka.core.Utils;
 import weka.core.UtilsPT;
 
 /**

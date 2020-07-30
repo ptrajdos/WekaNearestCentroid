@@ -35,7 +35,6 @@ public abstract class AbstractPrototypeTest extends TestCase {
 	 */
 	public AbstractPrototypeTest(String name) {
 		super(name);
-		// TODO Auto-generated constructor stub
 	}
 	
 	public abstract IClusterPrototype getPrototype();
@@ -101,8 +100,13 @@ public abstract class AbstractPrototypeTest extends TestCase {
 			fail("An exception has been caught");
 		}
 		
+	}
+	
+	public void testSerialization() {
 		try {
+			IClusterPrototype proto = this.getPrototype();
 			IClusterPrototype ptotoCopy = (IClusterPrototype) SerialCopier.makeCopy(proto);
+			assertTrue("Copy not null", ptotoCopy !=null );
 		}catch(Exception e) {
 			e.printStackTrace();
 			fail("Serialization copy failure!");

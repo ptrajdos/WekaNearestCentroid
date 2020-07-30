@@ -14,6 +14,9 @@ import weka.core.DenseInstance;
 import weka.core.Instance;
 import weka.core.Instances;
 import weka.tools.SerialCopier;
+import weka.tools.data.RandomDataGenerator;
+import weka.tools.tests.DistributionChecker;
+import weka.tools.tests.WekaGOEChecker;
 
 public class NearestCentroidClassifierTest extends AbstractClassifierTest {
 
@@ -58,6 +61,13 @@ public class NearestCentroidClassifierTest extends AbstractClassifierTest {
 	  String gInfor = cla.globalInfo();
 	  assertTrue("Non-zero description", gInfor.length()>1);
   }
+  
+  public void testGlobalInfor() {
+		WekaGOEChecker check = new WekaGOEChecker();
+		check.setObject(this.getClassifier());
+		assertTrue("Global info Checker", check.checkCallGlobalInfo());
+		assertTrue("TipText checker", check.checkToolTipsCall());
+	}
   
   public void testCentroids() {
 	  NearestCentroidClassifier classifier = (NearestCentroidClassifier) this.getClassifier();
@@ -107,6 +117,24 @@ public class NearestCentroidClassifierTest extends AbstractClassifierTest {
 	  }catch(Exception e) {
 		  fail("An exception has been caught:" + e.getClass().getCanonicalName());
 	  }
+  }
+  
+  public void testBiggerDataset() {
+	  RandomDataGenerator gen = new RandomDataGenerator();
+	  gen.setNumNominalAttributes(0);
+	  Instances data = gen.generateData();
+	  Instance testInstance = data.get(0);
+	  
+	  NearestCentroidClassifier cent = (NearestCentroidClassifier) this.getClassifier();
+	  
+	  try {
+		cent.buildClassifier(data);
+		double[] distribution = cent.distributionForInstance(testInstance);
+		  DistributionChecker.checkDistribution(distribution);
+	} catch (Exception e) {
+		fail("Bigger data fail, Exception has been thrown: " + e.getMessage());
+	}
+	  
   }
   
   protected Instances generateData() {

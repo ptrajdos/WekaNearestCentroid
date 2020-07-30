@@ -69,7 +69,7 @@ public class NearestCentroidClassifier extends AbstractClassifier{
 		this.isPrototypeActive = new boolean[numClasses];
 		this.prototypes = new IClusterPrototype[numClasses];
 		for(int c =0;c<numClasses;c++) {
-			this.prototypes[c] = (IClusterPrototype) SerialCopier.makeCopy(this.clusProto);
+			this.prototypes[c] = (IClusterPrototype) SerialCopier.makeCopy(this.getClusProto());
 			this.prototypes[c].build(splittedSets[c]);
 			this.isPrototypeActive[c] = splittedSets[c].numInstances()>0? true:false;
 		}
