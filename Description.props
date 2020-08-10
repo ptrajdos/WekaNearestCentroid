@@ -6,10 +6,10 @@
 PackageName=WekaNearestCentroid
 
 # Version (required)
-Version=4.0.0
+Version=4.0.1
 
 #Date
-Date=2020-02-12
+Date=2020-08-10
 
 # Title (required)
 Title= The implementation of the Nearest Centroid algorithm

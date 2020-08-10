@@ -10,6 +10,7 @@ import java.util.Vector;
 import weka.classifiers.AbstractClassifier;
 import weka.classifiers.functions.nearestCentroid.IClusterPrototype;
 import weka.classifiers.functions.nearestCentroid.prototypes.MahalanobisPrototype;
+import weka.classifiers.rules.ZeroR;
 import weka.core.Capabilities;
 import weka.core.Capabilities.Capability;
 import weka.core.Instance;
@@ -45,6 +46,8 @@ public class NearestCentroidClassifier extends AbstractClassifier{
 	 */
 	protected IClusterPrototype[] prototypes;
 	
+	protected ZeroR defaultModel;
+	
 	protected boolean[] isPrototypeActive;
 	/**
 	 * 
@@ -63,15 +66,26 @@ public class NearestCentroidClassifier extends AbstractClassifier{
 		if(!this.m_DoNotCheckCapabilities)
 			this.getCapabilities().testWithFail(data);
 		
+		this.defaultModel = null;
+		
 		Instances[] splittedSets = InstancesOperator.classSpecSplit(data);
 		
 		int numClasses = splittedSets.length;
 		this.isPrototypeActive = new boolean[numClasses];
 		this.prototypes = new IClusterPrototype[numClasses];
+		int numActivePrototypes =0;
 		for(int c =0;c<numClasses;c++) {
-			this.prototypes[c] = (IClusterPrototype) SerialCopier.makeCopy(this.clusProto);
-			this.prototypes[c].build(splittedSets[c]);
 			this.isPrototypeActive[c] = splittedSets[c].numInstances()>0? true:false;
+			if(this.isPrototypeActive[c]) {
+				this.prototypes[c] = (IClusterPrototype) SerialCopier.makeCopy(this.getClusProto());
+				this.prototypes[c].build(splittedSets[c]);
+				numActivePrototypes++;
+			}
+			
+		}
+		if(numActivePrototypes==0) {
+			this.defaultModel = new ZeroR();
+			this.defaultModel.buildClassifier(data);
 		}
 		
 	}
@@ -82,6 +96,10 @@ public class NearestCentroidClassifier extends AbstractClassifier{
 	 */
 	@Override
 	public double[] distributionForInstance(Instance instance) throws Exception {
+		
+		if(this.defaultModel!=null)
+			return this.defaultModel.distributionForInstance(instance);
+		
 		int numClasses = this.prototypes.length;
 		double[] distribution = new double[numClasses];
 		
@@ -167,7 +185,7 @@ public class NearestCentroidClassifier extends AbstractClassifier{
 	    caps.enable(Capability.NUMERIC_ATTRIBUTES);
 	 
 	    // instances
-	    caps.setMinimumNumberInstances(2);
+	    caps.setMinimumNumberInstances(0);
 	    
 		return caps; 
 	}
@@ -184,7 +202,10 @@ public class NearestCentroidClassifier extends AbstractClassifier{
 		if(this.prototypes != null) {
 			int numClasses = this.prototypes.length;
 			for(int c =0;c<numClasses;c++) {
-				buff.append(this.prototypes[c].getCenterPoint().toString() + "\n");
+				if(this.isPrototypeActive[c])
+					buff.append(this.prototypes[c].getCenterPoint().toString() + "\n");
+				else
+					buff.append("Inactive" + "\n");
 			}
 		}
 		return buff.toString();
@@ -200,7 +221,8 @@ public class NearestCentroidClassifier extends AbstractClassifier{
 		int numClasses = this.prototypes.length;
 		Instance[] insts = new Instance[numClasses];
 		for(int c =0;c<numClasses;c++) {
-			insts[c] = this.prototypes[c].getCenterPoint();
+			if(this.isPrototypeActive[c])
+				insts[c] = this.prototypes[c].getCenterPoint();
 		}
 		return insts;
 	}
