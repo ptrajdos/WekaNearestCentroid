@@ -119,6 +119,37 @@ public class NearestCentroidClassifierTest extends AbstractClassifierTest {
 	  }
   }
   
+  public void testNoInstancesData() {
+	  NearestCentroidClassifier classifier = (NearestCentroidClassifier) this.getClassifier();
+	  RandomDataGenerator gen = new RandomDataGenerator();
+	  gen.setNumNominalAttributes(0);
+	  gen.setNumObjects(0);
+	  Instances data = gen.generateData();
+	  
+	  gen.setNumObjects(10);
+	  Instances testData = gen.generateData();
+	  Instance testInstance = testData.get(0);
+	  
+	  
+	  try {
+		classifier.buildClassifier(data);
+		double[] distrib = classifier.distributionForInstance(testInstance);
+		assertTrue("Not null distribution", distrib!=null);
+		assertTrue("Distribution length", distrib.length == data.numClasses());
+		assertTrue("Distribution format",DistributionChecker.checkDistribution(distrib));
+		
+		Instance[] centroids = classifier.getCentroids();
+		assertTrue("Centroids array not null", centroids != null);
+		assertTrue("Centroids length,", centroids.length == data.numClasses());
+		for(int i=0;i<centroids.length;i++)
+			assertTrue("Empty centroid", centroids[i] == null);
+		
+	} catch (Exception e) {
+		fail("An exception has been caught:" + e.getClass().getCanonicalName());
+	}
+	  
+  }
+  
   public void testBiggerDataset() {
 	  RandomDataGenerator gen = new RandomDataGenerator();
 	  gen.setNumNominalAttributes(0);
