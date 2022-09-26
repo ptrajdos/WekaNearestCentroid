@@ -1,6 +1,6 @@
-dist: trusty
+dist: focal
 language: java
-jdk: oraclejdk8
+jdk: openjdk11
 sudo: enabled 
 
 install: mvn install -Dgpg.skip

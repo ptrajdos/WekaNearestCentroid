@@ -1,3 +1,4 @@
+[![Build Status](https://app.travis-ci.com/ptrajdos/WekaNearestCentroid.svg?branch=master)](https://app.travis-ci.com/ptrajdos/WekaNearestCentroid)
 [![Coverage Status](https://coveralls.io/repos/github/ptrajdos/WekaNearestCentroid/badge.svg?branch=master)](https://coveralls.io/github/ptrajdos/WekaNearestCentroid?branch=master)
 
 # WekaNearestCentroid
