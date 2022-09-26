@@ -2,6 +2,9 @@ dist: focal
 language: java
 jdk: openjdk11
 sudo: enabled 
+branches:
+  ony:
+    - master
 
 install: mvn install -Dgpg.skip
 after_success:
