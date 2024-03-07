@@ -113,6 +113,8 @@ public class NearestCentroidClassifier extends AbstractClassifier{
 		
 		if(!Utils.eq(0.0, sum)) 
 			Utils.normalize(distribution, sum);
+		else
+			distribution = UtilsPT.softMax(distribution);
 		
 		return distribution;
 	}
