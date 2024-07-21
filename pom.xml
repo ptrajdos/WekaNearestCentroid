@@ -7,7 +7,7 @@
   <groupId>com.github.ptrajdos</groupId>
   <artifactId>WekaNearestCentroid</artifactId>
   <packaging>jar</packaging>
-  <version>4.0.2</version>
+  <version>4.0.3</version>
 
   <name>Weka Nearest Centroid Classifier</name>
   <description> Weka implementation of the Nearest Centroid Classifier </description>
@@ -74,19 +74,29 @@
     
     <dependency>
       <groupId>nz.ac.waikato.cms.weka</groupId>
-      <artifactId>weka-stable</artifactId>
-      <version>[3.8.5,)</version>
+      <artifactId>weka-dev</artifactId>
+      <version>[3.9.6,)</version>
       <type>jar</type>
       <scope>compile</scope>
     </dependency>
 
     <dependency>
       <groupId>nz.ac.waikato.cms.weka</groupId>
-      <artifactId>weka-stable</artifactId>
-      <version>[3.8.5,)</version>
+      <artifactId>weka-dev</artifactId>
+      <version>[3.9.6,)</version>
       <type>test-jar</type>
       <scope>test</scope>
     </dependency>
+
+    <dependency>
+      <groupId>nz.ac.waikato.cms.weka</groupId>
+      <artifactId>weka-dev</artifactId>
+      <version>[3.9.6,)</version>
+      <type>java-source</type>
+    </dependency>
+
+
+
     <!-- mtj library modified by Weka authors -->
     <dependency>
       <groupId>com.googlecode.matrix-toolkits-java</groupId>
@@ -99,7 +109,7 @@
     <dependency>
         <groupId>com.github.ptrajdos</groupId>
         <artifactId>WekaTools</artifactId>
-        <version>[0.8.0,)</version>
+        <version>[2.3.1,)</version>
     </dependency>
 
   </dependencies>
@@ -175,6 +185,27 @@
 
     
       <plugins>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <version>3.0.0</version>
+        <executions>
+            <execution>
+                <id>enforce-dependency-convergence</id>
+                <goals>
+                    <goal>enforce</goal>
+                </goals>
+                <configuration>
+                    <rules>
+                        <dependencyConvergence />
+                    </rules>
+                    <fail>false</fail>
+                </configuration>
+            </execution>
+        </executions>
+      </plugin>
+
  <plugin>
     <groupId>org.jacoco</groupId>
     <artifactId>jacoco-maven-plugin</artifactId>
